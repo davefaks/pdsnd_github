@@ -27,13 +27,13 @@ def get_filters():
     month = input("Please enter month. For all months, please enter 'all': ").lower()
     while month not in months:
         month = input("Invalid month entered, please enter valid month. For all months, please enter 'all':").lower()
-        
+
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
     days = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
     day = input("Please enter day. For all days, please enter 'all': ").lower()
     while day not in days:
         day = input("Invalid day entered, please enter valid day. For all days, please enter 'all': ").lower()
-        
+
     print('-'*40)
     return city, month, day
 
@@ -49,7 +49,7 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-    
+
     # load data file into a dataframe
     df = pd.read_csv(CITY_DATA[city])
 
@@ -66,7 +66,7 @@ def load_data(city, month, day):
         # use the index of the months list to get the corresponding int
         months = ['january', 'february', 'march', 'april', 'may', 'june']
         month = months.index(month) + 1
-    
+
         # filter by month to create the new dataframe
         df = df[df['month'] == month]
 
@@ -74,7 +74,7 @@ def load_data(city, month, day):
     if day != 'all':
         # filter by day of week to create the new dataframe
         df = df[df['day_of_week'] == day.title()]
-    
+
     print(df['day_of_week'].value_counts())
 
     return df
@@ -89,10 +89,10 @@ def time_stats(df):
     # TO DO: display the most common month
     most_common_month = (df['month']).mode()[0]
     print('Most common month: {}'.format(most_common_month))
-    
+
     # TO DO: display the most common day of week
     most_common_day = (df['day_of_week']).mode()[0]
-    print('Most common day_of_week: {}'.format(most_common_day))
+    print('Most common day of week: {}'.format(most_common_day))
 
     # TO DO: display the most common start hour
     df['hour'] = df['Start Time'].dt.hour
@@ -162,19 +162,19 @@ def user_stats(df):
     if 'Birth Year' in df.columns:
         earliest_birth_year = int(min(df['Birth Year']))
         print('Earliest birth year: {}'.format(earliest_birth_year))
-    
+
         most_recent_birth_year = int(max(df['Birth Year']))
         print('Most recent birth year: {}'.format(most_recent_birth_year))
-    
+
         most_common_birth_year = int((df['Birth Year']).mode()[0])
         print('Most common birth year: {}'.format(most_common_birth_year))
     else:
         print('No year of birth information available')
-    
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-    
+
 def display_data(df):
     print(len(df))
     view_data = input("Would you like to view the first 5 rows of the data? Enter yes or no?: ").lower()
@@ -183,10 +183,10 @@ def display_data(df):
         print(df.iloc[start_loc:start_loc + 5])
         #pd.set_option('display.max_columns',200)
         start_loc += 5
-        view_display = input("Would you like to view the next 5 rows of the data? Enter yes or no?: ").lower()    
+        view_display = input("Would you like to view the next 5 rows of the data? Enter yes or no?: ").lower()
         if view_display != 'yes':
             break
-         
+
 def main():
     while True:
         city, month, day = get_filters()
