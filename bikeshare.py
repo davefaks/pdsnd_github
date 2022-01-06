@@ -169,7 +169,7 @@ def user_stats(df):
         most_common_birth_year = int((df['Birth Year']).mode()[0])
         print('Most common birth year: {}'.format(most_common_birth_year))
     else:
-        print('No year of birth information available')
+        print('No birth year information available')
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
